@@ -9,7 +9,7 @@ def check_for_all_digits(a, b, n):
         if c == '0':
             return None
         else:
-            counts[int(c) - 1] += 1
+            counts[ord(c) - 49] += 1
     if all(count == n for count in counts):
         return str(a) + str(b) + str(a - b)
     else:
