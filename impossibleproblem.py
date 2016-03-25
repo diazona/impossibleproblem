@@ -34,7 +34,7 @@ def find_solutions(num_of_digits):
     return solutions
 
 def main():
-    num_of_digits = int(input("please enter a number of digits, which is a multiple of 3"))
+    num_of_digits = 3
 
     try:
         solutions = find_solutions(num_of_digits)
@@ -58,4 +58,5 @@ def main():
     print("There were {} duplicates, by the way :)".format(len(solutions) - len(set(solutions))))
 
 if __name__ == '__main__':
-    main()
+    import cProfile
+    cProfile.run('main()')
