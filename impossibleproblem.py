@@ -15,7 +15,7 @@ def check_for_all_digits(a, b, n):
         return False
 
 def find_solutions(minX, minY, maxY, num_of_digits):
-    middlenumber = []
+    solutions = []
     successes = 0
     for y in range(minY, maxY+1):
         numberlist = []
@@ -27,8 +27,8 @@ def find_solutions(minX, minY, maxY, num_of_digits):
                 successes += 2
                 print(digits)
                 numberlist.extend([x,y-x])
-                middlenumber.extend([x, y-x])
-    return middlenumber, successes
+                solutions.extend([x, y-x])
+    return solutions, successes
 
 def main():
     num_of_digits = int(input("please enter a number of digits, which is a multiple of 3"))
@@ -44,7 +44,7 @@ def main():
     if num_of_digits == 6:
         minX =123123
 
-    middlenumber, successes = find_solutions(minX, minY, maxY, num_of_digits)
+    solutions, successes = find_solutions(minX, minY, maxY, num_of_digits)
 
     print("")
     print("I found: ", successes, " successful solution to your brainteaser")
@@ -57,7 +57,7 @@ def main():
     else:
         print("that's a lot of successes")
 
-    print("There were ", len(middlenumber) - len(set(middlenumber)) , " duplicates, by the way :)")
+    print("There were ", len(solutions) - len(set(solutions)) , " duplicates, by the way :)")
 
 if __name__ == '__main__':
     main()
