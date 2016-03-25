@@ -1,16 +1,15 @@
+from collections import Counter
 from math import trunc
+
+ALL_DIGITS = set(str(d) for d in range(1, 10))
 
 def check_for_all_digits(a, b, n):
     '''Checks whether a and b and their difference, taken together, include all
     digits from 1 to 9 exactly n times each.'''
-    seq = str(a), str(b), str(a - b)
-    digits = "".join(seq)
-    goodChecks = 0
-    for i in range(1,10):
-        if digits.count(str(i)) == n:
-            goodChecks += 1
-    if goodChecks == 9:
-        return digits
+    full_string = str(a) + str(b) + str(a - b)
+    digit_counts = Counter(full_string)
+    if all(k in ALL_DIGITS and v == n for k, v in digit_counts.items()):
+        return full_string
     else:
         return None
 
