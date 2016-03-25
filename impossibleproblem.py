@@ -14,7 +14,17 @@ def check_for_all_digits(a, b, n):
     else:
         return None
 
-def find_solutions(minX, minY, maxY, num_of_digits):
+def find_solutions(num_of_digits):
+    if num_of_digits == 3:
+        minY = 381
+        maxY = 987
+        minX = 123
+    elif num_of_digits == 6:
+        minY = 246912
+        maxY = 998877
+        minX = 123123
+    else:
+        raise ValueError('invalid number of digits: {} should be 3 or 6'.format(num_of_digits))
     solutions = []
     for y in range(minY, maxY+1):
         for x in range(minX, trunc(y/2)):
@@ -25,19 +35,13 @@ def find_solutions(minX, minY, maxY, num_of_digits):
 
 def main():
     num_of_digits = int(input("please enter a number of digits, which is a multiple of 3"))
-    if num_of_digits == 3:
-        minY = 381
-        maxY = 987
-        minX = 123
-    elif num_of_digits == 6:
-        minY = 246912
-        maxY = 998877
-        minX = 123123
-    else:
+
+    try:
+        solutions = find_solutions(num_of_digits)
+    except ValueError:
         print("Not a valid number of digits!")
         return
 
-    solutions = find_solutions(minX, minY, maxY, num_of_digits)
     successes = len(solutions)
 
     print()
