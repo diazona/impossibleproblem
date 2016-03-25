@@ -45,7 +45,7 @@ def main():
     solutions, successes = find_solutions(minX, minY, maxY, num_of_digits)
 
     print()
-    print("I found: ", successes, " successful solution to your brainteaser")
+    print("I found: {} successful solution to your brainteaser".format(successes))
     if successes < 20:
         print("there were almost no solutions")
     elif successes < 100:
@@ -55,7 +55,7 @@ def main():
     else:
         print("that's a lot of successes")
 
-    print("There were ", len(solutions) - len(set(solutions)) , " duplicates, by the way :)")
+    print("There were {} duplicates, by the way :)".format(len(solutions) - len(set(solutions))))
 
 if __name__ == '__main__':
     main()
