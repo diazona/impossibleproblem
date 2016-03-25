@@ -13,9 +13,23 @@ def solver(number, number2, numberofdigits):
     else:
         return False
 
-def main():
+def find_solutions(minX, minY, maxY, num_of_digits):
     middlenumber = []
     successes = 0
+    for y in range(minY, maxY+1):
+        numberlist = []
+        if y%100 == 0:
+            print(y)
+        for x in range(minX,trunc(y/2)):
+            digits = solver(y,x,num_of_digits)
+            if digits is not False:
+                successes += 2
+                print(digits)
+                numberlist.extend([x,y-x])
+                middlenumber.extend([x, y-x])
+    return middlenumber, successes
+
+def main():
     num_of_digits = int(input("please enter a number of digits, which is a multiple of 3"))
     if num_of_digits == 3:
         minY = 381
@@ -29,18 +43,7 @@ def main():
     if num_of_digits == 6:
         minX =123123
 
-
-    for y in range(minY, maxY+1):
-        numberlist = []
-        if y%100 == 0:
-            print(y)
-        for x in range(minX,trunc(y/2)):
-            digits = solver(y,x,num_of_digits)
-            if digits is not False:
-                successes += 2
-                print(digits)
-                numberlist.extend([x,y-x])
-                middlenumber.extend([x, y-x])
+    middlenumber, successes = find_solutions(minX, minY, maxY, num_of_digits)
 
     print("")
     print("I found: ", successes, " successful solution to your brainteaser")
