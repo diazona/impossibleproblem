@@ -33,14 +33,14 @@ def main():
     if num_of_digits == 3:
         minY = 381
         maxY = 987
-    if num_of_digits == 6:
+        minX = 123
+    elif num_of_digits == 6:
         minY =246912
         maxY = 998877
-
-    if num_of_digits == 3:
-        minX = 123
-    if num_of_digits == 6:
         minX =123123
+    else:
+        print("Not a valid number of digits!")
+        return
 
     solutions, successes = find_solutions(minX, minY, maxY, num_of_digits)
 
