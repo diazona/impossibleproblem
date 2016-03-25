@@ -18,7 +18,6 @@ def find_solutions(minX, minY, maxY, num_of_digits):
     solutions = []
     successes = 0
     for y in range(minY, maxY+1):
-        numberlist = []
         if y%100 == 0:
             print(y)
         for x in range(minX,trunc(y/2)):
@@ -26,7 +25,6 @@ def find_solutions(minX, minY, maxY, num_of_digits):
             if digits is not False:
                 successes += 2
                 print(digits)
-                numberlist.extend([x,y-x])
                 solutions.extend([x, y-x])
     return solutions, successes
 
