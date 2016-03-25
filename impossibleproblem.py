@@ -1,12 +1,13 @@
 from math import trunc
 
-def solver(number, number2, numberofdigits):
-    seq = str(number),str(number2), str(number - number2)
+def check_for_all_digits(a, b, n):
+    '''Checks whether a and b and their difference, taken together, include all
+    digits from 1 to 9 exactly n times each.'''
+    seq = str(a),str(b), str(a - b)
     digits = "".join(seq)
     goodChecks = 0
-    count= numberofdigits/3
     for i in range(1,10):
-        if digits.count(str(i)) == count:
+        if digits.count(str(i)) == n:
             goodChecks += 1
     if goodChecks == 9:
         return digits
@@ -21,7 +22,7 @@ def find_solutions(minX, minY, maxY, num_of_digits):
         if y%100 == 0:
             print(y)
         for x in range(minX,trunc(y/2)):
-            digits = solver(y,x,num_of_digits)
+            digits = check_for_all_digits(y, x, num_of_digits / 3)
             if digits is not False:
                 successes += 2
                 print(digits)
