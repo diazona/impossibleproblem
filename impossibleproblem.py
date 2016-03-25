@@ -12,7 +12,7 @@ def check_for_all_digits(a, b, n):
     if goodChecks == 9:
         return digits
     else:
-        return False
+        return None
 
 def find_solutions(minX, minY, maxY, num_of_digits):
     solutions = []
@@ -22,7 +22,7 @@ def find_solutions(minX, minY, maxY, num_of_digits):
             print(y)
         for x in range(minX,trunc(y/2)):
             digits = check_for_all_digits(y, x, num_of_digits / 3)
-            if digits is not False:
+            if digits is not None:
                 successes += 2
                 print(digits)
                 solutions.extend([x, y-x])
