@@ -16,14 +16,12 @@ def check_for_all_digits(a, b, n):
 
 def find_solutions(minX, minY, maxY, num_of_digits):
     solutions = []
-    successes = 0
     for y in range(minY, maxY+1):
         for x in range(minX, trunc(y/2)):
             digits = check_for_all_digits(y, x, num_of_digits / 3)
             if digits is not None:
-                successes += 2
                 solutions.extend([x, y-x])
-    return solutions, successes
+    return solutions
 
 def main():
     num_of_digits = int(input("please enter a number of digits, which is a multiple of 3"))
@@ -39,7 +37,8 @@ def main():
         print("Not a valid number of digits!")
         return
 
-    solutions, successes = find_solutions(minX, minY, maxY, num_of_digits)
+    solutions = find_solutions(minX, minY, maxY, num_of_digits)
+    successes = len(solutions)
 
     print()
     print("I found: {} successful solution to your brainteaser".format(successes))
