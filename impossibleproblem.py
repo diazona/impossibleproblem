@@ -10,7 +10,7 @@ def find_solutions(num_of_digits):
         b = int(''.join(islice(i, num_of_digits)))
         c = int(''.join(islice(i, num_of_digits)))
         if a > b > c and a - b == c:
-            solutions.extend([b, c])
+            solutions.append(frozenset((a, b, c)))
     return solutions
 
 def main():
