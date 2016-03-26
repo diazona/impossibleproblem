@@ -31,7 +31,7 @@ def find_solutions(num_of_digits):
         for x in range(minX, trunc(y/2)):
             digits = check_for_all_digits(y, x, num_of_digits / 3)
             if digits is not None:
-                solutions.extend([x, y-x])
+                solutions.append(frozenset((x, y, y-x)))
     return solutions
 
 def main():
