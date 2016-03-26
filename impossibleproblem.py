@@ -1,21 +1,25 @@
-from itertools import islice, permutations
-from math import trunc
+from itertools import product
 
-def find_solutions(num_of_digits):
-    digits = '123456789' * int(num_of_digits / 3)
-    for p in permutations(digits):
-        i = iter(p)
-        a = int(''.join(islice(i, num_of_digits)))
-        b = int(''.join(islice(i, num_of_digits)))
-        c = int(''.join(islice(i, num_of_digits)))
-        if a > b > c and a - b == c:
-            yield frozenset((a, b, c))
+def digits_solver():
+    column = [(x, a, d, (x + a + d) % 10, (x + a + d) // 10)
+              for x, a, d in product(range(2), range(1, 10), range(1, 10))
+              if len(set([a, d, (x + a + d) % 10])) == 3 and (x + a + d) % 10 != 0]
+    first_column = [(x, a, d, g) for x, a, d, g, z in column if z == 0 and a < d]
+    for x, a, d, g in first_column:
+        second_column = [(y, b, e, h) for y, b, e, h, xx in column if xx == x and not set([a,d,g]) & set([b,e,h])]
+        for y, b, e, h in second_column:
+            third_column = [(r, c, f, i) for r, c, f, i, yy in column
+                            if yy == y and not set([a,d,g,b,e,h]) & set([c,f,i]) and r == 0 ]
+            for _, c, f, i  in third_column:
+                yield (100 * g + 10 * h + i, 100 * d + 10 * e + f, 100 * a + 10 * b + c)
+
 
 def main():
     num_of_digits = 3
 
     try:
-        solution_generator = find_solutions(num_of_digits)
+
+        solution_generator = digits_solver()
     except ValueError:
         print("Not a valid number of digits!")
         return
@@ -38,7 +42,7 @@ def main():
     else:
         print("that's a lot of successes")
 
-    print("There were {} duplicates, by the way :)".format(len(solutions) - len(set(solutions))))
+    print("There were {} duplicates, by the way :)".format(successes - len(set(solutions))))
 
 if __name__ == '__main__':
     import cProfile
