@@ -3,26 +3,29 @@ from math import trunc
 
 def find_solutions(num_of_digits):
     digits = '123456789' * int(num_of_digits / 3)
-    solutions = []
     for p in permutations(digits):
         i = iter(p)
         a = int(''.join(islice(i, num_of_digits)))
         b = int(''.join(islice(i, num_of_digits)))
         c = int(''.join(islice(i, num_of_digits)))
         if a > b > c and a - b == c:
-            solutions.append(frozenset((a, b, c)))
-    return solutions
+            yield frozenset((a, b, c))
 
 def main():
     num_of_digits = 3
 
     try:
-        solutions = find_solutions(num_of_digits)
+        solution_generator = find_solutions(num_of_digits)
     except ValueError:
         print("Not a valid number of digits!")
         return
 
-    successes = len(solutions)
+    solutions = set()
+    for i, sol in enumerate(solution_generator):
+        solutions.add(sol)
+        #print("{} - {} = {}".format(*sorted(sol, reverse=True)))
+
+    successes = i + 1
 
     print()
     print("I found: {} successful solution to your brainteaser".format(successes))
