@@ -26,24 +26,27 @@ def find_solutions(num_of_digits):
         minX = 123123
     else:
         raise ValueError('invalid number of digits: {} should be 3 or 6'.format(num_of_digits))
-    solutions = []
     for y in range(minY, maxY+1):
         for x in range(minX, trunc(y/2)):
             digits = check_for_all_digits(y, x, num_of_digits / 3)
             if digits is not None:
-                solutions.append(frozenset((x, y, y-x)))
-    return solutions
+                yield frozenset((x, y, y-x))
 
 def main():
     num_of_digits = 3
 
     try:
-        solutions = find_solutions(num_of_digits)
+        solution_generator = find_solutions(num_of_digits)
     except ValueError:
         print("Not a valid number of digits!")
         return
 
-    successes = len(solutions)
+    solutions = set()
+    for i, sol in enumerate(solution_generator):
+        solutions.add(sol)
+        #print("{} - {} = {}".format(*sorted(sol, reverse=True)))
+
+    successes = i + 1
 
     print()
     print("I found: {} successful solution to your brainteaser".format(successes))
@@ -56,7 +59,7 @@ def main():
     else:
         print("that's a lot of successes")
 
-    print("There were {} duplicates, by the way :)".format(len(solutions) - len(set(solutions))))
+    print("There were {} duplicates, by the way :)".format(successes - len(solutions)))
 
 if __name__ == '__main__':
     import cProfile
